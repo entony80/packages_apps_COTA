@@ -58,21 +58,17 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
     private CoordinatorLayout mCoordinatorLayout;
     private TextView mMessage;
     private FloatingActionButton mButton;
+    private TextView mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_system);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (TextView) findViewById(R.id.toolbar);
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         mMessage = (TextView) findViewById(R.id.message);
         mButton = (FloatingActionButton) findViewById(R.id.fab);
-
-        setSupportActionBar(toolbar);
-        // TODO: Add back button
-        //getSupportActionBar().setHomeButtonEnabled(true);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mRom = null;
         DownloadHelper.init(this, this);
@@ -152,14 +148,14 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
             default:
             case STATE_CHECK:
                 if (mRom == null) {
-                    setTitle(R.string.no_updates_title);
+                    mToolbar.setText(R.string.no_updates_title);
                     mMessage.setText(R.string.no_updates_text);
                     mButton.setImageResource(R.drawable.ic_check_update);
                 }
                 break;
             case STATE_FOUND:
                 if (!mRomUpdater.isScanning() && mRom != null) {
-                    setTitle(R.string.update_found_title);
+                    mToolbar.setText(R.string.update_found_title);
                     mMessage.setText(getResources().getString(R.string.update_found_text,
                             new Object[]{
                                     Formatter.formatShortFileSize(this, Long.decode(mRom.getSize()))
@@ -168,17 +164,17 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
                 }
                 break;
             case STATE_DOWNLOADING:
-                setTitle(R.string.downloading_title);
+                mToolbar.setText(R.string.downloading_title);
                 mMessage.setText(String.format(getString(R.string.downloading_text), "0%"));
                 mButton.setImageResource(R.drawable.ic_cancel_download);
                 break;
             case STATE_ERROR:
-                setTitle(R.string.download_failed_title);
+                mToolbar.setText(R.string.download_failed_title);
                 mMessage.setText(R.string.download_failed_text);
                 mButton.setImageResource(R.drawable.ic_check_update);
                 break;
             case STATE_INSTALL:
-                setTitle(R.string.install_title);
+                mToolbar.setText(R.string.install_title);
                 mMessage.setText(R.string.install_text);
                 mButton.setImageResource(R.drawable.ic_install_update);
                 break;
