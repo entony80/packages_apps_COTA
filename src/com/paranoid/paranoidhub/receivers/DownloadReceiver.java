@@ -1,15 +1,15 @@
-package com.paranoid.paranoidhub.receivers;
+package com.cypher.cota.receivers;
 
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.paranoid.paranoidhub.activities.SystemActivity;
+import com.cypher.cota.activities.SystemActivity;
 
 public class DownloadReceiver extends BroadcastReceiver {
-    public static final String CHECK_DOWNLOADS_FINISHED = "com.paranoid.paranoidhub.Utils.CHECK_DOWNLOADS_FINISHED";
-    public static final String CHECK_DOWNLOADS_ID = "com.paranoid.paranoidhub.Utils.CHECK_DOWNLOADS_ID";
+    public static final String CHECK_DOWNLOADS_FINISHED = "com.cypher.cota.Utils.CHECK_DOWNLOADS_FINISHED";
+    public static final String CHECK_DOWNLOADS_ID = "com.cypher.cota.Utils.CHECK_DOWNLOADS_ID";
 
     @Override
     public void onReceive(Context context, Intent intent) {

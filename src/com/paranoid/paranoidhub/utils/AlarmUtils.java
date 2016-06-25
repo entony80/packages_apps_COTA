@@ -1,11 +1,11 @@
-package com.paranoid.paranoidhub.utils;
+package com.cypher.cota.utils;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.paranoid.paranoidhub.receivers.NotificationAlarm;
+import com.cypher.cota.receivers.NotificationAlarm;
 
 public class AlarmUtils {
     public static final int DEFAULT_CHECK_TIME = 18000000; // five hours

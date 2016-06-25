@@ -1,4 +1,4 @@
-package com.paranoid.paranoidhub.utils;
+package com.cypher.cota.utils;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,14 +8,14 @@ import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 
-import com.paranoid.paranoidhub.R;
-import com.paranoid.paranoidhub.activities.SystemActivity;
-import com.paranoid.paranoidhub.updater.Updater;
+import com.cypher.cota.R;
+import com.cypher.cota.activities.SystemActivity;
+import com.cypher.cota.updater.Updater;
 
 import java.io.Serializable;
 
 public class NotificationUtils {
-    public static final String FILES_INFO = "com.paranoid.paranoidhub.Utils.FILES_INFO";
+    public static final String FILES_INFO = "com.cypher.cota.Utils.FILES_INFO";
     public static final int NOTIFICATION_ID = 122303235;
     private static Updater.PackageInfo[] sPackageInfosRom = new Updater.PackageInfo[0];
 

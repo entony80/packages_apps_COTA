@@ -1,4 +1,4 @@
-package com.paranoid.paranoidhub.utils;
+package com.cypher.cota.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,33 +1,33 @@
 /*
  * Copyright 2014 ParanoidAndroid Project
  *
- * This file is part of Paranoid OTA.
+ * This file is part of CypherOS OTA.
  *
- * Paranoid OTA is free software: you can redistribute it and/or modify
+ * CypherOS OTA is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Paranoid OTA is distributed in the hope that it will be useful,
+ * CypherOS OTA is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Paranoid OTA.  If not, see <http://www.gnu.org/licenses/>.
+ * along with CypherOS OTA.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.paranoid.paranoidhub.helpers;
+package com.cypher.cota.helpers;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.SparseArray;
 
-import com.paranoid.paranoidhub.helpers.recovery.CwmBasedRecovery;
-import com.paranoid.paranoidhub.helpers.recovery.RecoveryInfo;
-import com.paranoid.paranoidhub.helpers.recovery.TwrpRecovery;
-import com.paranoid.paranoidhub.utils.FileUtils;
-import com.paranoid.paranoidhub.utils.UpdateUtils;
+import com.cypher.cota.helpers.recovery.CwmBasedRecovery;
+import com.cypher.cota.helpers.recovery.RecoveryInfo;
+import com.cypher.cota.helpers.recovery.TwrpRecovery;
+import com.cypher.cota.utils.FileUtils;
+import com.cypher.cota.utils.UpdateUtils;
 
 public class RecoveryHelper {
 

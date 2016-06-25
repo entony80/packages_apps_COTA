@@ -1,4 +1,4 @@
-package com.paranoid.paranoidhub.activities;
+package com.cypher.cota.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -17,18 +17,18 @@ import android.text.format.Formatter;
 import android.view.View;
 import android.widget.TextView;
 
-import com.paranoid.paranoidhub.R;
-import com.paranoid.paranoidhub.helpers.DownloadHelper;
-import com.paranoid.paranoidhub.helpers.RebootHelper;
-import com.paranoid.paranoidhub.helpers.RecoveryHelper;
-import com.paranoid.paranoidhub.receivers.DownloadReceiver;
-import com.paranoid.paranoidhub.updater.RomUpdater;
-import com.paranoid.paranoidhub.updater.Updater.PackageInfo;
-import com.paranoid.paranoidhub.updater.Updater.UpdaterListener;
-import com.paranoid.paranoidhub.utils.DeviceInfoUtils;
-import com.paranoid.paranoidhub.utils.FileUtils;
-import com.paranoid.paranoidhub.utils.NotificationUtils;
-import com.paranoid.paranoidhub.utils.PreferenceUtils;
+import com.cypher.cota.R;
+import com.cypher.cota.helpers.DownloadHelper;
+import com.cypher.cota.helpers.RebootHelper;
+import com.cypher.cota.helpers.RecoveryHelper;
+import com.cypher.cota.receivers.DownloadReceiver;
+import com.cypher.cota.updater.RomUpdater;
+import com.cypher.cota.updater.Updater.PackageInfo;
+import com.cypher.cota.updater.Updater.UpdaterListener;
+import com.cypher.cota.utils.DeviceInfoUtils;
+import com.cypher.cota.utils.FileUtils;
+import com.cypher.cota.utils.NotificationUtils;
+import com.cypher.cota.utils.PreferenceUtils;
 
 import java.io.File;
 import java.util.ArrayList;

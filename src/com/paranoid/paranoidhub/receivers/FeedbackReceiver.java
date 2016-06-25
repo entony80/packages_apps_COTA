@@ -1,4 +1,4 @@
-package com.paranoid.paranoidhub.receivers;
+package com.cypher.cota.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,7 +9,7 @@ public class FeedbackReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         switch (intent.getAction()) {
-            case "com.paranoidhub.FEEDBACK":
+            case "com.cypher.FEEDBACK":
                 // TODO: Add FeedBack
                 break;
         }

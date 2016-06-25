@@ -1,4 +1,4 @@
-package com.paranoid.paranoidhub.utils;
+package com.cypher.cota.utils;
 
 import java.io.Serializable;
 

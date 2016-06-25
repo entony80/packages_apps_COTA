@@ -1,4 +1,4 @@
-package com.paranoid.paranoidhub;
+package com.cypher.cota;
 
 import android.app.Application;
 

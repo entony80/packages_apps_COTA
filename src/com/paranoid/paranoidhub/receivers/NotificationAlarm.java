@@ -1,11 +1,11 @@
-package com.paranoid.paranoidhub.receivers;
+package com.cypher.cota.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.paranoid.paranoidhub.updater.RomUpdater;
-import com.paranoid.paranoidhub.utils.NetworkUtils;
+import com.cypher.cota.updater.RomUpdater;
+import com.cypher.cota.utils.NetworkUtils;
 
 public class NotificationAlarm extends BroadcastReceiver {
 

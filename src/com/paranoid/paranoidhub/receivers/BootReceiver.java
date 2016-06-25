@@ -1,12 +1,12 @@
-package com.paranoid.paranoidhub.receivers;
+package com.cypher.cota.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.paranoid.paranoidhub.utils.AlarmUtils;
-import com.paranoid.paranoidhub.utils.DeviceInfoUtils;
-import com.paranoid.paranoidhub.utils.PreferenceUtils;
+import com.cypher.cota.utils.AlarmUtils;
+import com.cypher.cota.utils.DeviceInfoUtils;
+import com.cypher.cota.utils.PreferenceUtils;
 
 import java.util.HashMap;
 
