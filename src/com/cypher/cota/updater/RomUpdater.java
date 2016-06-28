@@ -22,7 +22,7 @@ package com.cypher.cota.updater;
 import android.content.Context;
 
 import com.cypher.cota.R;
-import com.cypher.cota.updater.server.PaServer;
+import com.cypher.cota.updater.server.CypherServer;
 import com.cypher.cota.utils.DeviceInfoUtils;
 import com.cypher.cota.utils.Version;
 
@@ -30,7 +30,7 @@ public class RomUpdater extends Updater {
 
     public RomUpdater(Context context, boolean fromAlarm) {
         super(context, new Server[]{
-                new PaServer()}, fromAlarm);
+                new CypherServer()}, fromAlarm);
     }
 
     @Override

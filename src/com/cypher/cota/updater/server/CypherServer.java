@@ -32,9 +32,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class PaServer implements Server {
+public class CypherServer implements Server {
 
-    private static final String URL = "http://api.aospa.co/updates/%s";
+    private static final String URL = "get.cypheros.co";
 
     private String mDevice = null;
     private String mError = null;
