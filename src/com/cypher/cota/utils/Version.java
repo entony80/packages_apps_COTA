@@ -48,7 +48,7 @@ public class Version implements Serializable {
 
     public Version(String fileName) {
         String[] STATIC_REMOVE = {
-                ".zip", "pa_"
+                ".zip", "cypher_"
         };
         for (String remove : STATIC_REMOVE) {
             fileName = fileName.replace(remove, "");
