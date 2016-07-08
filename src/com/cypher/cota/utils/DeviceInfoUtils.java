@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DeviceInfoUtils {
     private static final String MOD_VERSION = "ro.modversion";
-    private static final String PROPERTY_DEVICE = "ro.pa.device";
+    private static final String PROPERTY_DEVICE = "ro.cypher.device";
     private static final String PROPERTY_DEVICE_EXT = "ro.product.device";
 
     public static String getDate() {
