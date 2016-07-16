@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class DeviceInfoUtils {
-    private static final String MOD_VERSION = "ro.modversion";
+    private static final String MOD_VERSION = "ro.cypher.version";
     private static final String PROPERTY_DEVICE = "ro.cypher.device";
     private static final String PROPERTY_DEVICE_EXT = "ro.product.device";
 
