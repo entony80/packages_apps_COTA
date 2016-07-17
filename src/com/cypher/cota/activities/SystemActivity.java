@@ -188,8 +188,6 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
             case STATE_CHECK:
                 mState = STATE_CHECK;
                 mRomUpdater.check(true);
-				Snackbar.make(mCoordinatorLayout, R.string.update_checking, Snackbar.LENGTH_SHORT)
-                .show();
                 break;
             case STATE_FOUND:
                 if (!mRomUpdater.isScanning() && mRom != null) {
