@@ -4,12 +4,15 @@
 
     <!-- Up To Date -->
     <string name="no_updates_title">System update</string>
-    <string name="no_updates_text">Your device is already up to date!</string>
+    <string name="no_updates_text">Your device is currently up to date!</string>
 
     <!-- Update available -->
     <string name="update_found_title">Update available</string>
     <string name="update_found_text">CypherOS update is available.\nTap on the button below to begin downloading. Download updates over a mobile network or while roaming may cause additional charges.\nThe update requires a restart.\n\nUpdate size: %1$s</string>
 
+	<!-- Update checking message -->
+	<string name="update_checking">Checking for updates....</string>
+	
     <!-- Downloading update -->
     <string name="downloading_title">Downloading update…</string>
     <string name="downloading_text">Downloading… %1$s\nTap on the button below to cancel downloading</string>
