@@ -25,7 +25,7 @@ public class DeviceInfoUtils {
     }
 
     public static String getVersionString() {
-        return "cypher_" + getDevice() + "-" + UpdateUtils.getProp(MOD_VERSION);
+        return "cs_" + getDevice() + "-" + UpdateUtils.getProp(MOD_VERSION);
     }
 
     public static String getReadableDate(String fileDate) {

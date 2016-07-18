@@ -37,7 +37,7 @@ public class FileUtils {
             .getExternalStorageDirectory(), "updates/").getAbsolutePath();
     private static final String SDCARD = Environment.getExternalStorageDirectory()
             .getAbsolutePath();
-    private static final String PREFIX = "cypher_";
+    private static final String PREFIX = "cs_";
     private static final String SUFFIX = ".zip";
 
     private static String sPrimarySdcard;
