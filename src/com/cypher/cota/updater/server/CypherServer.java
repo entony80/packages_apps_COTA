@@ -34,7 +34,7 @@ import java.util.List;
 
 public class CypherServer implements Server {
 
-    private static final String URL = "http://get.cypheros.co/json/%s";
+    private static final String URL = "http://get.cypheros.co/updates/%s";
 
     private String mDevice = null;
     private String mError = null;
