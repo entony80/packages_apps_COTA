@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.format.Formatter;
 import android.view.View;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.cypher.cota.R;
 import com.cypher.cota.helpers.DownloadHelper;
@@ -30,15 +31,17 @@ import com.cypher.cota.utils.FileUtils;
 import com.cypher.cota.utils.NotificationUtils;
 import com.cypher.cota.utils.PreferenceUtils;
 
+import org.piwik.sdk.DownloadTracker;
+import org.piwik.sdk.PiwikApplication;
+import org.piwik.sdk.TrackHelper;
+
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import ly.count.android.sdk.Countly;
 
 public class SystemActivity extends AppCompatActivity implements FloatingActionButton.OnClickListener,
         UpdaterListener, DownloadHelper.DownloadCallback {
+    private static final String TAG = "COTA:SystemActivity";
 
     private int mState;
     private static final int STATE_CHECK = 0;
@@ -151,32 +154,40 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
                     mToolbar.setText(R.string.no_updates_title);
                     mMessage.setText(R.string.no_updates_text);
                     mButton.setImageResource(R.drawable.ic_check_update);
+                    Log.v(TAG, "updateMessages:STATE_CHECK = mRom != null");
                 }
+                Log.v(TAG, "updateMessages:STATE_CHECK = mRom == null");
                 break;
             case STATE_FOUND:
                 if (!mRomUpdater.isScanning() && mRom != null) {
                     mToolbar.setText(R.string.update_found_title);
-                    mMessage.setText(getResources().getString(R.string.update_found_text,
-                            new Object[]{
-                                    Formatter.formatShortFileSize(this, Long.decode(mRom.getSize()))
-                            }));
+                    String ShortFileSize = getResources().getString(R.string.update_found_text,
+                        new Object[]{
+                              Formatter.formatShortFileSize(this, Long.decode(mRom.getSize()))
+                        });
+                    mMessage.setText(ShortFileSize);
                     mButton.setImageResource(R.drawable.ic_download_update);
+                    Log.v(TAG, "updateMessages:STATE_FOUND = " + ShortFileSize);
                 }
+                Log.v(TAG, "updateMessages:STATE_FOUND = mRomUpdater.isScanning || mRom == null");
                 break;
             case STATE_DOWNLOADING:
                 mToolbar.setText(R.string.downloading_title);
                 mMessage.setText(String.format(getString(R.string.downloading_text), "0%"));
                 mButton.setImageResource(R.drawable.ic_cancel_download);
+                Log.v(TAG, "updateMessages:STATE_DOWNLOADING = " + String.format(getString(R.string.downloading_text), "0%"));
                 break;
             case STATE_ERROR:
                 mToolbar.setText(R.string.download_failed_title);
                 mMessage.setText(R.string.download_failed_text);
                 mButton.setImageResource(R.drawable.ic_check_update);
+                Log.v(TAG, "updateMessages:STATE_ERROR");
                 break;
             case STATE_INSTALL:
                 mToolbar.setText(R.string.install_title);
                 mMessage.setText(R.string.install_text);
                 mButton.setImageResource(R.drawable.ic_install_update);
+                Log.v(TAG, "updateMessages:STATE_INSTALL");
                 break;
         }
     }
@@ -188,6 +199,7 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
             case STATE_CHECK:
                 mState = STATE_CHECK;
                 mRomUpdater.check(true);
+                Log.v(TAG, "onClick:STATE_CHECK");
                 break;
             case STATE_FOUND:
                 if (!mRomUpdater.isScanning() && mRom != null) {
@@ -196,20 +208,21 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
                     DownloadHelper.downloadFile(mRom.getPath(),
                             mRom.getFilename(), mRom.getMd5());
                     updateMessages(mRom);
-                    HashMap<String, String> segmentation = new HashMap<>();
-                    segmentation.put("device", DeviceInfoUtils.getDevice());
-                    segmentation.put("file", mRom.getFilename());
-                    Countly.sharedInstance().recordEvent("fileDownload", segmentation, 1);
+                    TrackHelper.track().download().version(mRom.getFilename()).with(((PiwikApplication) getApplication()).getTracker());
+                    Log.v(TAG, "onClick:STATE_FOUND = " + DeviceInfoUtils.getDevice() + ":" + mRom.getFilename());
                 }
+                Log.v(TAG, "onClick:STATE_FOUND = mRomUpdater.isScanning || mRom == null");
                 break;
             case STATE_DOWNLOADING:
                 mState = STATE_CHECK;
                 DownloadHelper.clearDownloads();
                 updateMessages((PackageInfo) null);
+                Log.v(TAG, "onClick:STATE_DOWNLOADING");
                 break;
             case STATE_ERROR:
                 mState = STATE_CHECK;
                 mRomUpdater.check(true);
+                Log.v(TAG, "onClick:STATE_ERROR");
                 break;
             case STATE_INSTALL:
                 String[] items = new String[mFiles.size()];
@@ -218,6 +231,7 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
                     items[i] = file.getAbsolutePath();
                 }
                 mRebootHelper.showRebootDialog(SystemActivity.this, items);
+                Log.v(TAG, "onClick:STATE_INSTALL = " + android.text.TextUtils.join(", ", items));
                 break;
         }
     }

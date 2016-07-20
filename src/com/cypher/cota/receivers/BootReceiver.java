@@ -4,13 +4,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.cypher.cota.App;
 import com.cypher.cota.utils.AlarmUtils;
 import com.cypher.cota.utils.DeviceInfoUtils;
 import com.cypher.cota.utils.PreferenceUtils;
 
-import java.util.HashMap;
+import org.piwik.sdk.PiwikApplication;
+import org.piwik.sdk.Tracker;
+import org.piwik.sdk.TrackHelper;
 
-import ly.count.android.sdk.Countly;
+import java.util.HashMap;
 
 public class BootReceiver extends BroadcastReceiver {
     @Override
@@ -18,10 +21,13 @@ public class BootReceiver extends BroadcastReceiver {
         AlarmUtils.setAlarm(context, true);
 
         if (!PreferenceUtils.getPreference(context, PreferenceUtils.PROPERTY_FIRST_BOOT, false)) {
+            //App app = (App)context.getApplicationContext();
+            App app = App.getApplication();
+
             HashMap<String, String> segmentation = new HashMap<>();
             segmentation.put("device", DeviceInfoUtils.getDevice());
             segmentation.put("version", DeviceInfoUtils.getVersionString());
-            Countly.sharedInstance().recordEvent("firstBoot", segmentation, 1);
+            TrackHelper.track().screen("First Boot").variable(0, "Device", DeviceInfoUtils.getDevice()).variable(1, "Version", DeviceInfoUtils.getVersionString()).with(app.getTracker());
             PreferenceUtils.setPreference(context, PreferenceUtils.PROPERTY_FIRST_BOOT, true);
         }
     }
