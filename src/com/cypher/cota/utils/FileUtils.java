@@ -34,10 +34,10 @@ import java.util.Scanner;
 public class FileUtils {
 
     public static final String DOWNLOAD_PATH = new File(Environment
-            .getExternalStorageDirectory(), "updates/").getAbsolutePath();
+            .getExternalStorageDirectory(), "Updates/").getAbsolutePath();
     private static final String SDCARD = Environment.getExternalStorageDirectory()
             .getAbsolutePath();
-    private static final String PREFIX = "cs_";
+    private static final String PREFIX = "cypher_";
     private static final String SUFFIX = ".zip";
 
     private static String sPrimarySdcard;
