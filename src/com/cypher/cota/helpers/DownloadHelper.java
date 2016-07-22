@@ -174,15 +174,27 @@ public class DownloadHelper {
 
     public static void downloadFile(final String url, final String fileName, final String md5) {
         sUpdateHandler.post(sUpdateProgress);
+
+        File romFile = File(fileName);
+
+        if (romFile.exists() && FileUtils.md5(fileName) == md5) {
+            downloadSuccesful();
+
+            return;
+        }
+
         sCallback.onDownloadStarted();
         Request request = new Request(Uri.parse(url));
         request.setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setVisibleInDownloadsUi(false);
         request.setTitle(fileName);
+
         File file = new File(FileUtils.DOWNLOAD_PATH);
+
         if (!file.exists()) {
             file.mkdirs();
         }
+
         request.setDestinationUri(Uri.fromFile(new File(FileUtils.DOWNLOAD_PATH, fileName)));
 
         if (ContextCompat.checkSelfPermission(sContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)

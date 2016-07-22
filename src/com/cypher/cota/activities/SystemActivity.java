@@ -286,7 +286,8 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
                         public void run() {
                             if (md5.equals(calculatedMd5)) {
                                 reallyAddFile(file);
-                            } else {
+                            }
+                            else {
                                 showMd5Mismatch(file);
                             }
                         }

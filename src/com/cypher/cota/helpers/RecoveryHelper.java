@@ -22,6 +22,7 @@ package com.cypher.cota.helpers;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.SparseArray;
+import android.util.Log;
 
 import com.cypher.cota.helpers.recovery.CwmBasedRecovery;
 import com.cypher.cota.helpers.recovery.RecoveryInfo;
@@ -30,6 +31,7 @@ import com.cypher.cota.utils.FileUtils;
 import com.cypher.cota.utils.UpdateUtils;
 
 public class RecoveryHelper {
+    private static final String TAG = "COTA:RecoveryHelper";
 
     private SparseArray<RecoveryInfo> mRecoveries = new SparseArray<>();
     private Context mContext;
@@ -70,6 +72,9 @@ public class RecoveryHelper {
         String primarySdcard = FileUtils.getPrimarySdCard();
         String secondarySdcard = FileUtils.getSecondarySdCard();
 
+        boolean useInternal = false;
+        boolean useExternal = false;
+
         @SuppressLint("SdCardPath") String[] internalNames = new String[]{
                 primarySdcard,
                 "/mnt/sdcard",
@@ -78,6 +83,7 @@ public class RecoveryHelper {
                 "/storage/sdcard0",
                 "/storage/emulated/0"
         };
+
         String[] externalNames = new String[]{
                 secondarySdcard == null ? " " : secondarySdcard,
                 "/mnt/extSdCard",
@@ -86,21 +92,44 @@ public class RecoveryHelper {
                 "/storage/sdcard1",
                 "/storage/emulated/1"
         };
+
+        Log.v(TAG, "getRecoveryFilePath:filePath = " + filePath);
+
         for (int i = 0; i < internalNames.length; i++) {
             String internalName = internalNames[i];
-            String externalName = externalNames[i];
-            if (filePath.startsWith(externalName)) {
-                filePath = filePath.replace(externalName, "/" + externalStorage);
-                break;
-            } else if (filePath.startsWith(internalName)) {
+
+            Log.v(TAG, "getRecoveryFilePath:checking internalName = " + internalName);
+
+            if (filePath.startsWith(internalName)) {
                 filePath = filePath.replace(internalName, "/" + internalStorage);
+
+                useInternal = true;
+
                 break;
+            }
+        }
+
+        if (!useInternal) {
+            for (int i = 0; i < externalNames.length; i++) {
+                String externalName = externalNames[i];
+
+                Log.v(TAG, "getRecoveryFilePath:checking externalName = " + externalName);
+
+                if (filePath.startsWith(externalName)) {
+                    filePath = filePath.replace(externalName, "/" + externalStorage);
+
+                    useExternal = true;
+
+                    break;
+                }
             }
         }
 
         while (filePath.startsWith("//")) {
             filePath = filePath.substring(1);
         }
+
+        Log.v(TAG, "getRecoveryFilePath:new filePath = " + filePath);
 
         return filePath;
     }
