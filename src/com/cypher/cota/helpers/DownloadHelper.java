@@ -29,6 +29,7 @@ import android.database.CursorIndexOutOfBoundsException;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.cypher.cota.R;
 import com.cypher.cota.utils.FileUtils;
@@ -37,6 +38,7 @@ import com.cypher.cota.utils.PreferenceUtils;
 import java.io.File;
 
 public class DownloadHelper {
+    private static final String TAG = "COTA:DownloadHelper";
 
     private static Context sContext;
     private static Handler sUpdateHandler = new Handler();
@@ -175,12 +177,18 @@ public class DownloadHelper {
     public static void downloadFile(final String url, final String fileName, final String md5) {
         sUpdateHandler.post(sUpdateProgress);
 
-        File romFile = File(fileName);
+        File ROMFile = new File(FileUtils.DOWNLOAD_PATH + fileName);
 
-        if (romFile.exists() && FileUtils.md5(fileName) == md5) {
-            downloadSuccesful();
+        if (ROMFile.exists()) {
+            Log.v(TAG, "downloadFile:romFile exists, checking MD5");
 
-            return;
+            if (FileUtils.md5(ROMFile) == md5) {
+                Log.v(TAG, "downloadFile:romFile MD5 matches remote, marking file as downloaded");
+
+                downloadSuccesful();
+
+                return;
+            }
         }
 
         sCallback.onDownloadStarted();
@@ -192,6 +200,8 @@ public class DownloadHelper {
         File file = new File(FileUtils.DOWNLOAD_PATH);
 
         if (!file.exists()) {
+            Log.v(TAG, "downloadFile:Download directory does not exist, creating it");
+
             file.mkdirs();
         }
 
@@ -200,6 +210,9 @@ public class DownloadHelper {
         if (ContextCompat.checkSelfPermission(sContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED) {
             long id = sDownloadManager.enqueue(request);
+
+            Log.v(TAG, "downloadFile:Begin downloading");
+
             sDownloadingRom = true;
             PreferenceUtils.setDownloadRomId(sContext, id, md5, fileName);
         }
