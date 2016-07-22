@@ -189,6 +189,9 @@ public class DownloadHelper {
 
                 return;
             }
+            else {
+                ROMFile.delete();
+            }
         }
 
         sCallback.onDownloadStarted();

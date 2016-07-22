@@ -46,6 +46,7 @@ public class FileUtils {
 
     public static void init(Context context) {
         File downloads = new File(DOWNLOAD_PATH);
+
         downloads.mkdirs();
 
         readMounts(context);

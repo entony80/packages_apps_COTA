@@ -76,7 +76,7 @@ public class RecoveryHelper {
         boolean useExternal = false;
 
         @SuppressLint("SdCardPath") String[] internalNames = new String[]{
-                primarySdcard,
+                primarySdcard == null ? "NOPE" : primarySdcard,
                 "/mnt/sdcard",
                 "/storage/sdcard/",
                 "/sdcard",
@@ -85,7 +85,7 @@ public class RecoveryHelper {
         };
 
         String[] externalNames = new String[]{
-                secondarySdcard == null ? " " : secondarySdcard,
+                secondarySdcard == null ? "NOPE" : secondarySdcard,
                 "/mnt/extSdCard",
                 "/storage/extSdCard/",
                 "/extSdCard",
