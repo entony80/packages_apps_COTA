@@ -24,6 +24,6 @@ public class UpdateService extends Service {
 
         Log.v(TAG, "onCreate: Service starting");
 
-        AlarmUtils.setAlarm(this, false);
+        AlarmUtils.setAlarm(this, true);
     }
 }

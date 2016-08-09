@@ -23,7 +23,7 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.v(TAG, "onReceive intent received " + intent.toString());
 
-        AlarmUtils.setSingleAlarm(context, 120);
+        AlarmUtils.setAlarm(context, true);
 
         if (!PreferenceUtils.getPreference(context, PreferenceUtils.PROPERTY_FIRST_BOOT, false)) {
             Log.v(TAG, "onReceive:First boot, recording version");
