@@ -61,6 +61,10 @@
                 <action android:name="com.cypher.FEEDBACK" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".services.UpdateService"
+            android:exported="false"/>
     </application>
 
 </manifest>

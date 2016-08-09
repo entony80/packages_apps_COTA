@@ -12,15 +12,22 @@ import com.cypher.cota.utils.PreferenceUtils;
 import org.piwik.sdk.PiwikApplication;
 import org.piwik.sdk.Tracker;
 import org.piwik.sdk.TrackHelper;
+import android.util.Log;
 
 import java.util.HashMap;
 
 public class BootReceiver extends BroadcastReceiver {
+    private static final String TAG = "COTA:BootReceiver";
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        AlarmUtils.setAlarm(context, true);
+        Log.v(TAG, "onReceive intent received " + intent.toString());
+
+        AlarmUtils.setSingleAlarm(context, 120);
 
         if (!PreferenceUtils.getPreference(context, PreferenceUtils.PROPERTY_FIRST_BOOT, false)) {
+            Log.v(TAG, "onReceive:First boot, recording version");
+
             //App app = (App)context.getApplicationContext();
             App app = App.getApplication();
 

@@ -26,15 +26,15 @@ public class Version implements Serializable {
 
     private static final String SEPARATOR = "-";
 
-    private static final int UNOFFICIAL = 0;
-    private static final int EXPERIMENTAL = 1;
-    private static final int NIGHTLY = 2;
-    private static final int WEEKLY = 3;
-    private static final int MONTHLY = 4;
-    private static final int RELEASE = 5;
+    private static final int EXPERIMENTAL = 0;
+    private static final int NIGHTLY = 1;
+    private static final int WEEKLY = 2;
+    private static final int MONTHLY = 3;
+    private static final int RELEASE = 4;
+    private static final int UNOFFICIAL = 666;
 
     private final String[] TYPES = {
-      "UNOFFICIAL", "EXPERIMENTAL", "NIGHTLY", "WEEKLY", "MONTHLY", "RELEASE"
+      "EXPERIMENTAL", "NIGHTLY", "WEEKLY", "MONTHLY", "RELEASE", "UNOFFICIAL"
     };
 
     private String mDevice;
@@ -101,11 +101,8 @@ public class Version implements Serializable {
 
             version = split[2];
 
-            // "UNOFFICIAL", "EXPERIMENTAL", "NIGHTLY", "WEEKLY", "MONTHLY", "RELEASE"
-            if (version.startsWith("UNOFFICIAL")) {
-               mType = UNOFFICIAL;
-            }
-            else if (version.startsWith("EXPERIMENTAL")) {
+            // "EXPERIMENTAL", "NIGHTLY", "WEEKLY", "MONTHLY", "RELEASE", "UNOFFICIAL"
+            if (version.startsWith("EXPERIMENTAL")) {
                mType = EXPERIMENTAL;
             }
             else if (version.startsWith("NIGHTLY")) {
@@ -117,11 +114,14 @@ public class Version implements Serializable {
             else if (version.startsWith("MONTHLY")) {
                mType = MONTHLY;
             }
-            else {
+            else if (version.startsWith("RELEASE")) {
                mType = RELEASE;
             }
+            else {
+                mType = UNOFFICIAL;
+            }
 
-            mDate = split[3];
+                mDate = split[3];
         } catch (NumberFormatException ex) {
             // malformed version, write the log and continue
             // C derped something for sure

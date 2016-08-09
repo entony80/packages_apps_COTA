@@ -30,6 +30,21 @@ public class AlarmUtils {
         }
     }
 
+    public static void setSingleAlarm(Context context, long time) {
+        Intent i = new Intent(context, NotificationAlarm.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        PendingIntent pi = PendingIntent.getBroadcast(context,
+                ROM_ALARM_ID, i,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.cancel(pi);
+        if (time > 0) {
+            am.set(AlarmManager.RTC_WAKEUP, time, pi);
+        }
+    }
+
     public static boolean alarmExists(Context context) {
         return (PendingIntent.getBroadcast(context, ROM_ALARM_ID,
                 new Intent(context, NotificationAlarm.class),
