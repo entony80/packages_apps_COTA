@@ -1,9 +1,10 @@
 package com.cypher.cota.utils;
 
+import android.util.Log;
 import java.io.Serializable;
 
 /**
- * Class to manage different versions in the zip name.
+ * Class to manage different versions
  * <p/>
  * Format<br>
  * cypher_A_B-C.D.E-F-H.zip<br>
@@ -24,20 +25,7 @@ import java.io.Serializable;
  */
 public class Version implements Serializable {
 
-    private static final String SEPARATOR = "-";
-
-    private static final int EXPERIMENTAL = 0;
-    private static final int NIGHTLY = 1;
-    private static final int WEEKLY = 2;
-    private static final int MONTHLY = 3;
-    private static final int RELEASE = 4;
-    private static final int UNOFFICIAL = 666;
-
-    private final String[] TYPES = {
-      "EXPERIMENTAL", "NIGHTLY", "WEEKLY", "MONTHLY", "RELEASE", "UNOFFICIAL"
-    };
-
-    private String mDevice;
+    private static final String TAG = "Updates/Version";
 
     private int mMajor = 0;
     private int mMinor = 0;
@@ -47,91 +35,30 @@ public class Version implements Serializable {
 
     private String mDate = "0";
 
-    public Version() {
+    public Version(String version) {
+        this(version.split("-")[0], version.split("-")[1]);
     }
 
-    public Version(String fileName) {
-        String[] STATIC_REMOVE = {
-            ".zip", "cypher_", "_mm", "_n"
-        };
-        for (String remove : STATIC_REMOVE) {
-            fileName = fileName.replace(remove, "");
-        }
-
-        String[] split = fileName.split(SEPARATOR);
-
-        mDevice = split[0];
-
-        // remove gapps extra names (modular, full, mini, etc)
-        while (split[1].matches("\\w+\\.?")) {
-            String[] newSplit = new String[split.length - 1];
-            newSplit[0] = split[0];
-            System.arraycopy(split, 2, newSplit, 1, split.length - 2);
-            split = newSplit;
-            if (split.length <= 1) {
-                break;
-            }
-        }
-
-        if (split.length <= 1) {
-            // malformed version
-            return;
-        }
+    public Version(String version, String date) {
 
         try {
-            String version = split[1];
-            int index = -1;
-            if ((index = version.indexOf(".")) > 0) {
-                mMajor = Integer.parseInt(version.substring(0, index));
-                version = version.substring(index + 1);
-                if (version.length() > 0) {
-                    mMinor = Integer.parseInt(version.substring(0, 1));
-                }
-                if (version.length() > 1) {
-                    String maintenance = version.substring(1);
-                    if (maintenance.startsWith(".")) {
-                        maintenance = maintenance.substring(1);
-                    }
-                    mMaintenance = Integer.parseInt(maintenance);
-                }
+            String[] parts = version.split("\\.");
+            mMajor = Integer.parseInt(parts[0]);
+            if (parts.length > 1) {
+                mMinor = Integer.parseInt(parts[1]);
             }
-            else {
-                mMajor = Integer.parseInt(version);
-            }
-
-            version = split[2];
-
-            // "EXPERIMENTAL", "NIGHTLY", "WEEKLY", "MONTHLY", "RELEASE", "UNOFFICIAL"
-            if (version.startsWith("EXPERIMENTAL")) {
-               mType = EXPERIMENTAL;
-            }
-            else if (version.startsWith("NIGHTLY")) {
-               mType = NIGHTLY;
-            }
-            else if (version.startsWith("WEEKLY")) {
-               mType = WEEKLY;
-            }
-            else if (version.startsWith("MONTHLY")) {
-               mType = MONTHLY;
-            }
-            else if (version.startsWith("RELEASE")) {
-               mType = RELEASE;
-            }
-            else {
-                mType = UNOFFICIAL;
-            }
-
-                mDate = split[3];
+            if (parts.length > 2) {
+                mMaintenance = Integer.parseInt(parts[2]);
+			}	
+			mDate = date;
+            if (Constants.DEBUG) Log.d(TAG, "got version M: " + mMajor + "m: " + mMinor + "maint: " + mMaintenance);
+            if (Constants.DEBUG) Log.d(TAG, "got date: " + mDate);
         } catch (NumberFormatException ex) {
             // malformed version, write the log and continue
             // C derped something for sure
             ex.printStackTrace();
+			Log.d(TAG, "Whhhhhhhhyyyy?");
         }
-    }
-
-    public static Version fromGapps(String platform, String version) {
-        return new Version("gapps-" + platform.substring(0, 1) + "."
-                + (platform.length() > 1 ? platform.substring(1) : "") + "-" + version);
     }
 
     public static int compare(Version v1, Version v2) {
@@ -151,10 +78,6 @@ public class Version implements Serializable {
             return v1.getDate().compareTo(v2.getDate());
         }
         return 0;
-    }
-
-    public String getDevice() {
-        return mDevice;
     }
 
     public int getMajor() {
@@ -186,17 +109,7 @@ public class Version implements Serializable {
     }
 
     public String toString() {
-        return toString(true);
-    }
-
-    public String toString(boolean showDevice) {
-        return (showDevice ? mDevice + " " : "")
-                + mMajor
-                + "."
-                + mMinor
-                + (mMaintenance > 0 ? "."
-                + mMaintenance : "")
-                + (mType != RELEASE ? " " + getTypeName() : "")
+        return mMajor + "." + mMinor + (mMaintenance > 0 ? "." + mMaintenance : "")
                 + " (" + mDate + ")";
     }
 }
