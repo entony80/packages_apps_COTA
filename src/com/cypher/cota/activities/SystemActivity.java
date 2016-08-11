@@ -173,7 +173,7 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
                             mUpdatePackage.getVersion(),
                             Formatter.formatShortFileSize(this, Long.decode(mUpdatePackage.getSize()))));
                     mButton.setImageResource(R.drawable.ic_download_update);
-                    Log.v(TAG, "updateMessages:STATE_FOUND = " + ShortFileSize);
+                    Log.v(TAG, "updateMessages:STATE_FOUND = " + Formatter.formatShortFileSize(this, Long.decode(mUpdatePackage.getSize())));
                 }
                 Log.v(TAG, "updateMessages:STATE_FOUND = mRomUpdater.isScanning || mRom == null");
                 break;
