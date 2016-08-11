@@ -43,7 +43,8 @@ public class NotificationUtils {
                 .setContentIntent(pIntent)
                 .setOngoing(true);
 
-        builder.setContentText(infosRom[0].getFilename());
+        builder.setContentText(resources.getString(R.string.rom_name) + " "
+                + infosRom[0].getVersion().toString());
 
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

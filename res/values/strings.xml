@@ -1,6 +1,7 @@
 <resources>
     <!-- GENERAL -->
     <string name="app_name">System update</string>
+	<string name="update_label">CypherOS</string>
 
     <!-- Up To Date -->
     <string name="no_updates_title">System update</string>
@@ -8,7 +9,7 @@
 
     <!-- Update available -->
     <string name="update_found_title">Update available</string>
-    <string name="update_found_text">CypherOS update is available.\nTap on the button below to begin downloading. To get the latest information on what is new in this update take a look at our news post.\n\nThe update requires a restart.\nUpdate size: %1$s</string>
+    <string name="update_found_text">CypherOS %1$s is available.\nTap on the button below to begin downloading. To get the latest information on what is new in this update take a look at our news post.\n\nThe update requires a restart.\nUpdate size: %2$s</string>
 
 	<!-- Update checking message -->
 	<string name="update_checking">Checking for updates....</string>

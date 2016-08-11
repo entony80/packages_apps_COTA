@@ -53,7 +53,7 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
     private RomUpdater mRomUpdater;
     private RebootHelper mRebootHelper;
 
-    private PackageInfo mRom;
+    private PackageInfo mUpdatePackage;
     private List<File> mFiles = new ArrayList<>();
 
     private NotificationUtils.NotificationInfo mNotificationInfo;
@@ -73,7 +73,7 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
         mMessage = (TextView) findViewById(R.id.message);
         mButton = (FloatingActionButton) findViewById(R.id.fab);
 
-        mRom = null;
+        mUpdatePackage = null;
         DownloadHelper.init(this, this);
         mRomUpdater = new RomUpdater(this, true);
         mRebootHelper = new RebootHelper(new RecoveryHelper(SystemActivity.this));
@@ -130,7 +130,7 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
     @Override
     public void startChecking() {
         mState = STATE_CHECK;
-        updateMessages(mRom);
+        updateMessages(mUpdatePackage);
     }
 
     @Override
@@ -154,24 +154,26 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
     }
 
     private void updateMessages(PackageInfo info) {
-        mRom = info;
+        mUpdatePackage = info;
         switch (mState) {
             default:
             case STATE_CHECK:
-                if (mRom == null) {
+                if (mUpdatePackage == null) {
                     mToolbar.setText(R.string.no_updates_title);
                     mMessage.setText(R.string.no_updates_text);
                     mButton.setImageResource(R.drawable.ic_check_update);
-                    Log.v(TAG, "updateMessages:STATE_CHECK = mRom != null");
+                    Log.v(TAG, "updateMessages:STATE_CHECK = mUpdatePackage != null");
                 }
-                Log.v(TAG, "updateMessages:STATE_CHECK = mRom == null");
+                Log.v(TAG, "updateMessages:STATE_CHECK = mUpdatePackage == null");
                 break;
             case STATE_FOUND:
-                if (!mRomUpdater.isScanning() && mRom != null) {
+                if (!mRomUpdater.isScanning() && mUpdatePackage != null) {
                     mToolbar.setText(R.string.update_found_title);
-                    String ShortFileSize = getResources().getString(R.string.update_found_text,
+                    String ShortFileSize = String.format(
+                            getResources().getString(R.string.update_found_text),
+							mUpdatePackage.getVersion(),
                         new Object[]{
-                              Formatter.formatShortFileSize(this, Long.decode(mRom.getSize()))
+                              Formatter.formatShortFileSize(this, Long.decode(mUpdatePackage.getSize()))));
                         });
                     mMessage.setText(ShortFileSize);
                     mButton.setImageResource(R.drawable.ic_download_update);
@@ -210,16 +212,16 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
                 Log.v(TAG, "onClick:STATE_CHECK");
                 break;
             case STATE_FOUND:
-                if (!mRomUpdater.isScanning() && mRom != null) {
+                if (!mRomUpdater.isScanning() && mUpdatePackage != null) {
                     mState = STATE_DOWNLOADING;
                     DownloadHelper.registerCallback(SystemActivity.this);
-                    DownloadHelper.downloadFile(mRom.getPath(),
-                            mRom.getFilename(), mRom.getMd5());
-                    updateMessages(mRom);
-                    TrackHelper.track().download().version(mRom.getFilename()).with(((PiwikApplication) getApplication()).getTracker());
-                    Log.v(TAG, "onClick:STATE_FOUND = " + DeviceInfoUtils.getDevice() + ":" + mRom.getFilename());
+                    DownloadHelper.downloadFile(mUpdatePackage.getPath(),
+                            mUpdatePackage.getFilename(), mUpdatePackage.getMd5());
+                    updateMessages(mUpdatePackage);
+                    TrackHelper.track().download().version(mUpdatePackage.getFilename()).with(((PiwikApplication) getApplication()).getTracker());
+                    Log.v(TAG, "onClick:STATE_FOUND = " + DeviceInfoUtils.getDevice() + ":" + mUpdatePackage.getFilename());
                 }
-                Log.v(TAG, "onClick:STATE_FOUND = mRomUpdater.isScanning || mRom == null");
+                Log.v(TAG, "onClick:STATE_FOUND = mRomUpdater.isScanning || mUpdatePackage == null");
                 break;
             case STATE_DOWNLOADING:
                 mState = STATE_CHECK;
