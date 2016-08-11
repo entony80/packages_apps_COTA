@@ -69,9 +69,6 @@ public class Version implements Serializable {
         if (v1.getMaintenance() != v2.getMaintenance()) {
             return v1.getMaintenance() < v2.getMaintenance() ? -1 : 1;
         }
-        if (v1.getType() != v2.getType()) {
-            return v1.getType() < v2.getType() ? -1 : 1;
-        }
         if (!v1.getDate().equals(v2.getDate())) {
             return v1.getDate().compareTo(v2.getDate());
         }
