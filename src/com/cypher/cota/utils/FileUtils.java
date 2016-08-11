@@ -88,6 +88,16 @@ public class FileUtils {
         }
         return "0";
     }
+	
+	public static File getFile(Context context, String fileName) {
+        File downloads = initSettingsHelper(context);
+        for (File f : downloads.listFiles()) {
+            if (f.getName().equals(fileName)) {
+                return f;
+            }
+        }
+        return null; //The downloaded file couldn't be located
+    }
 
     public static boolean isOnDownloadList(Context context, String fileName) {
         for (String file : getDownloadList(context)) {
