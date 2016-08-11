@@ -43,7 +43,7 @@ public class NotificationUtils {
                 .setContentIntent(pIntent)
                 .setOngoing(true);
 
-        builder.setContentText(resources.getString(R.string.rom_name) + " "
+        builder.setContentText(resources.getString(R.string.update_label) + " "
                 + infosRom[0].getVersion().toString());
 
         NotificationManager mNotificationManager =
