@@ -168,13 +168,10 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
             case STATE_FOUND:
                 if (!mRomUpdater.isScanning() && mUpdatePackage != null) {
                     mToolbar.setText(R.string.update_found_title);
-                    String ShortFileSize = String.format(
+                    mMessage.setText(String.format(
                             getResources().getString(R.string.update_found_text),
-							mUpdatePackage.getVersion(),
-                        new Object[]{
-                              Formatter.formatShortFileSize(this, Long.decode(mUpdatePackage.getSize()))
-                        });
-                    mMessage.setText(ShortFileSize);
+                            mUpdatePackage.getVersion(),
+                            Formatter.formatShortFileSize(this, Long.decode(mUpdatePackage.getSize()))));
                     mButton.setImageResource(R.drawable.ic_download_update);
                     Log.v(TAG, "updateMessages:STATE_FOUND = " + ShortFileSize);
                 }
