@@ -31,8 +31,6 @@ public class Version implements Serializable {
     private int mMinor = 0;
     private int mMaintenance = 0;
 
-    private int mType = RELEASE;
-
     private String mDate = "0";
 
     public Version(String version) {
@@ -90,14 +88,6 @@ public class Version implements Serializable {
 
     public int getMaintenance() {
         return mMaintenance;
-    }
-
-    public int getType() {
-        return mType;
-    }
-
-    public String getTypeName() {
-        return TYPES[mType];
     }
 
     public String getDate() {

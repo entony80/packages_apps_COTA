@@ -172,7 +172,7 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
                             getResources().getString(R.string.update_found_text),
 							mUpdatePackage.getVersion(),
                         new Object[]{
-                              Formatter.formatShortFileSize(this, Long.decode(mUpdatePackage.getSize()))));
+                              Formatter.formatShortFileSize(this, Long.decode(mUpdatePackage.getSize()))
                         });
                     mMessage.setText(ShortFileSize);
                     mButton.setImageResource(R.drawable.ic_download_update);
@@ -203,6 +203,7 @@ public class SystemActivity extends AppCompatActivity implements FloatingActionB
 
     @Override
     public void onClick(View v) {
+		if (Constants.DEBUG) Log.d(TAG, "Fab clicked. mState = " + mState);
         switch (mState) {
             default:
             case STATE_CHECK:
