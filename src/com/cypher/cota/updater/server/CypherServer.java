@@ -64,12 +64,12 @@ public class CypherServer implements Server {
                 String versionString  = file.getString("version");
                 String dateString     = file.getString("build");
 
-                Log.d(TAG, "version from server " + versionString + " " + dateString);
+                if (Constants.DEBUG) Log.d(TAG, "version from server: " + versionString + " " + dateString);
                 Version version = new Version(versionString, dateString);
                 if (Version.compare(mVersion, version) < 0) {
                     list.add(new UpdatePackage(mDevice, filename, version, file.getString("size"),
                             file.getString("url"), file.getString("md5")));
-                    Log.d(TAG, "A new version is found!");
+                    if (Constants.DEBUG) Log.d(TAG, "A new version is found!");
                 }
             }
         }
