@@ -41,7 +41,7 @@ public class NotificationUtils {
                 .setSmallIcon(R.drawable.ic_launcher_mono)
                 .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_launcher))
                 .setContentIntent(pIntent)
-                .setOngoing(true)
+                .setOngoing(true);
 
         builder.setContentText(resources.getString(R.string.update_label) + " "
                 + infosRom[0].getVersion().toString());
