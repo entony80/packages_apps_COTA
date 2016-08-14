@@ -34,7 +34,7 @@ public class NotificationUtils {
         fileInfo.mPackageInfosRom = infosRom;
         intent.putExtra(FILES_INFO, fileInfo);
 		PendingIntent dismissIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, intent,
-                PendingIntent.FLAG_AUTO_CANCEL);
+                PendingIntent.FLAG_UPDATE_CURRENT).cancel();
         PendingIntent pIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
