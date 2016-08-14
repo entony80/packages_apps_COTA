@@ -33,15 +33,21 @@ public class NotificationUtils {
         fileInfo.mNotificationId = NOTIFICATION_ID;
         fileInfo.mPackageInfosRom = infosRom;
         intent.putExtra(FILES_INFO, fileInfo);
+		PendingIntent dismissIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, intent,
+                PendingIntent.FLAG_AUTO_CANCEL);
         PendingIntent pIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentTitle(resources.getString(R.string.update_found_title))
+				.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setSmallIcon(R.drawable.ic_launcher_mono)
                 .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_launcher))
                 .setContentIntent(pIntent)
-                .setOngoing(true);
+                .setOngoing(true)
+				.setAutoCancel(true)
+				.addAction(R.drawable.ic_dismiss, "Later", dismissIntent)
+                .addAction(R.drawable.ic_download, "Download", pIntent);
 
         builder.setContentText(resources.getString(R.string.update_label) + " "
                 + infosRom[0].getVersion().toString());
