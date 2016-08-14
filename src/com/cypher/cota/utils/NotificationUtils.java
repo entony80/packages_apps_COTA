@@ -33,8 +33,6 @@ public class NotificationUtils {
         fileInfo.mNotificationId = NOTIFICATION_ID;
         fileInfo.mPackageInfosRom = infosRom;
         intent.putExtra(FILES_INFO, fileInfo);
-		PendingIntent dismissIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT).cancel();
         PendingIntent pIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -46,7 +44,6 @@ public class NotificationUtils {
                 .setContentIntent(pIntent)
                 .setOngoing(true)
 				.setAutoCancel(true)
-				.addAction(R.drawable.ic_dismiss, "Later", dismissIntent)
                 .addAction(R.drawable.ic_download, "Download", pIntent);
 
         builder.setContentText(resources.getString(R.string.update_label) + " "
