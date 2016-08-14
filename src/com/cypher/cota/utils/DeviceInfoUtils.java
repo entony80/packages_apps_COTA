@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class DeviceInfoUtils {
-    private static final String MOD_VERSION = "ro.modversion";
+    private static final String CYPHER_VERSION = "ro.cypher.version";
     private static final String PROPERTY_DEVICE = "ro.cypher.device";
     private static final String PROPERTY_DEVICE_EXT = "ro.product.device";
 
@@ -25,7 +25,7 @@ public class DeviceInfoUtils {
     }
 
     public static String getVersionString() {
-        return UpdateUtils.getProp(MOD_VERSION);
+        return UpdateUtils.getProp(CYPHER_VERSION);
     }
 
     public static String getReadableDate(String fileDate) {
